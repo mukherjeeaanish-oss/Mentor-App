@@ -149,6 +149,59 @@
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Dashboard specific - FULLY RESTORED */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--bg-panel); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; text-align: center; }
+        .stat-card h2 { margin: 0; font-size: 2rem; color: var(--primary); }
+        .stat-card p { margin: 5px 0 0 0; color: var(--text-muted); }
+
+        /* Interactive Dropdowns - FULLY RESTORED */
+        .action-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .action-container { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .action-header {
+            padding: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .action-header:hover { background: var(--bg-hover); }
+        .action-header svg.chevron { transition: transform 0.3s ease; }
+        .action-header.open svg.chevron { transform: rotate(180deg); }
+        .action-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: var(--bg-deep); border-top: 1px solid transparent;
+        }
+        .action-header.open + .action-body {
+            max-height: 300px; padding: 1rem; border-top-color: var(--border);
+        }
+        .list-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+        .list-item:last-child { border-bottom: none; }
+
+        /* Certificate Widget - FULLY RESTORED */
+        .cert-widget { display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; margin: 0 auto; }
+        .cert-preview {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); color: #0f172a;
+            padding: 3rem 2rem; border-radius: 12px; text-align: center;
+            border: 8px solid #cbd5e1; box-shadow: 0 10px 25px rgba(0,0,0,0.3); position: relative;
+        }
+        .cert-preview::after {
+            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid #94a3b8; pointer-events: none;
+        }
+        .cert-preview h2 { font-family: 'Georgia', serif; font-size: 1.8rem; color: #1e293b; margin-top: 0; text-transform: uppercase; letter-spacing: 2px;}
+        .cert-preview h3 { font-size: 2rem; color: var(--primary); margin: 1rem 0; font-family: 'Georgia', serif; font-style: italic;}
+        .progress-bar-container { background: var(--bg-deep); border-radius: 10px; padding: 3px; border: 1px solid var(--border); margin: 1rem 0;}
+        .progress-bar { height: 10px; background: var(--primary); border-radius: 8px; width: 0%; }
+
+        /* Modal - FULLY RESTORED */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7);
+            display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px;
+            padding: 2rem; max-width: 400px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .modal-icon { color: var(--accent); width: 48px; height: 48px; margin-bottom: 1rem; }
+
         /* Bottom Nav */
         .bottom-nav {
             position: absolute; bottom: 0; left: 0; right: 0; height: var(--bottom-nav-height);
@@ -186,7 +239,6 @@
             background: linear-gradient(90deg, var(--bg-panel) 0%, rgba(99, 102, 241, 0.1) 100%); border-radius: 16px 16px 0 0;
         }
         
-        /* Custom AI Core SVG Avatar */
         .chat-header-avatar { 
             width: 42px; height: 42px; border-radius: 50%; background: var(--bg-deep); 
             display: flex; align-items: center; justify-content: center; border: 1px solid var(--primary);
@@ -315,6 +367,10 @@
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         <span data-i18n="find_mentors">Find Mentors (Clones)</span>
                     </div>
+                    <div class="nav-item" onclick="navigate('certs'); toggleSidebar()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                        <span data-i18n="certs">Certs/VR</span>
+                    </div>
                     <div class="nav-item" onclick="logout()">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                         <span data-i18n="logout">Secure Logout</span>
@@ -323,19 +379,102 @@
             </aside>
 
             <main class="main-content">
+                <!-- Dashboard / Home fully restored -->
                 <div id="tab-home" class="tab-pane active">
-                    <h2 style="margin-top:0;">Welcome to Orion EdTech</h2>
-                    <p style="color: var(--text-muted);">Use the floating AI node in the bottom right to begin your technical mentorship session.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h2>0</h2>
+                            <p data-i18n="active_mentors">Active Mentors</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>0</h2>
+                            <p data-i18n="upcoming_sessions">Upcoming Sessions</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>0</h2>
+                            <p data-i18n="reward_points">Reward Points</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem;" data-i18n="quick_actions">Quick Actions</h3>
+                    
+                    <div class="action-list">
+                        <!-- Dropdown 1 -->
+                        <div class="action-container">
+                            <div class="action-header" onclick="toggleAccordion(this)">
+                                <div style="display:flex; align-items:center; gap: 10px;">
+                                    <svg width="20" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    <span data-i18n="view_scheduled">View Scheduled Sessions</span>
+                                </div>
+                                <svg class="chevron" width="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div class="action-body">
+                                <div class="list-item">
+                                    <span data-i18n="not_updated">Data not populated yet.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown 2 -->
+                        <div class="action-container">
+                            <div class="action-header" onclick="toggleAccordion(this)">
+                                <div style="display:flex; align-items:center; gap: 10px;">
+                                    <svg width="20" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                    <span data-i18n="open_chats">Open Active Chats</span>
+                                </div>
+                                <svg class="chevron" width="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div class="action-body">
+                                <div class="list-item">
+                                    <span data-i18n="not_updated">Data not populated yet.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Certs / VR Tab fully restored -->
+                <div id="tab-certs" class="tab-pane">
+                    <div class="cert-widget">
+                        <div class="cert-preview">
+                            <h2 data-i18n="cert_title">Certificate of Completion</h2>
+                            <p style="color: #64748b; margin-top: 1.5rem;" data-i18n="cert_awarded">This certifies that</p>
+                            <h3 id="cert-name-display">Participant Name</h3>
+                            <p style="color: #475569;" data-i18n="cert_desc">has successfully participated in the Orion Mentorship Module</p>
+                            
+                            <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                                <div style="border-top: 1px solid #94a3b8; width: 120px; padding-top: 5px; font-size: 0.8rem;">System Auth</div>
+                                <div style="border-top: 1px solid #94a3b8; width: 120px; padding-top: 5px; font-size: 0.8rem;" id="current-date"></div>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong data-i18n="module_progress">Module Progress</strong>
+                                <span style="color: var(--text-muted)">0/3 Sessions</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="attemptClaim()" data-i18n="claim_btn">Claim Certificate</button>
+                        </div>
+                    </div>
+                </div>
+                
                 <div id="tab-directory" class="tab-pane"><h2 data-i18n="find_mentors">Find Mentors</h2></div>
+                <div id="tab-events" class="tab-pane"><h2 data-i18n="events">Events</h2></div>
+                <div id="tab-calendar" class="tab-pane"><h2 data-i18n="calendar">Calendar</h2></div>
+                <div id="tab-chat" class="tab-pane"><h2 data-i18n="chats">Chats</h2></div>
             </main>
 
+            <!-- Floating Action Button -->
             <div class="ai-mentor-fab" onclick="toggleAiChat()">
                 <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
             </div>
 
+            <!-- Orion Knowledge Chat Widget -->
             <div class="ai-chat-window glass" id="ai-chat-window">
                 <div class="chat-header">
                     <div class="chat-header-avatar">
@@ -355,12 +494,11 @@
                     <div class="chat-bubble bubble-ai" id="welcome-msg">
                         Hello! I am the Orion AI Mentor. I can help clarify concepts based on my training. Try asking about the topics below:
                         <div class="suggestions-container" id="chat-suggestions">
+                            <button class="suggestion-chip" onclick="sendSuggested('How old is the startup?')">Startup Age</button>
+                            <button class="suggestion-chip" onclick="sendSuggested('When can I join?')">Joining Process</button>
                             <button class="suggestion-chip" onclick="sendSuggested('Difference between AI, ML, and DL')">AI / ML / DL</button>
                             <button class="suggestion-chip" onclick="sendSuggested('What is overfitting?')">Overfitting</button>
-                            <button class="suggestion-chip" onclick="sendSuggested('How does an API work?')">APIs</button>
                             <button class="suggestion-chip" onclick="sendSuggested('Python palindrome function')">Palindrome (Python)</button>
-                            <button class="suggestion-chip" onclick="sendSuggested('How does a RAG system work?')">RAG Systems</button>
-                            <button class="suggestion-chip" onclick="sendSuggested('Debug: print(\'Hello World)')">Debug Code</button>
                         </div>
                     </div>
                 </div>
@@ -387,7 +525,20 @@
         </div>
     </div>
 
+    <!-- Alert Modal restored -->
+    <div class="modal-overlay" id="alert-modal">
+        <div class="modal-content">
+            <svg class="modal-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <h3 style="margin-top:0;" data-i18n="modal_title">Action Required</h3>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;" data-i18n="modal_desc">You have to complete all the sessions to get this certificate.</p>
+            <button class="btn" onclick="closeModal()" style="width: 100%;" data-i18n="close">Understood</button>
+        </div>
+    </div>
+
     <script>
+        // Set dynamic date on cert
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString();
+
         // --- Mock Database & Auth State ---
         const userDB = {}; 
         let currentAuthTab = 'login';
@@ -448,6 +599,7 @@
             const user = userDB[email];
             document.getElementById('sidebar-name').innerText = user.name;
             document.getElementById('sidebar-email').innerText = email;
+            document.getElementById('cert-name-display').innerText = user.name;
 
             const words = user.name.split(/\s+/).filter(w => w.length > 0);
             let initials = "--";
@@ -474,6 +626,16 @@
         function toggleProfileMenu() {
             document.getElementById('profile-dropdown').classList.toggle('open');
         }
+        function toggleAccordion(element) {
+            element.classList.toggle('open');
+        }
+        function attemptClaim() {
+            document.getElementById('alert-modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('alert-modal').style.display = 'none';
+        }
+
         function navigate(tabId) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.b-nav-item').forEach(el => el.classList.remove('active'));
@@ -482,12 +644,13 @@
             if(targetPane) targetPane.classList.add('active');
 
             const navItems = document.querySelectorAll('.b-nav-item');
-            if(tabId === 'home') navItems[0].classList.add('active');
-            if(tabId === 'directory') navItems[1].classList.add('active');
+            const navMap = { 'home': 0, 'events': 1, 'certs': 2, 'calendar': 3, 'chat': 4 };
+            if(navMap[tabId] !== undefined) navItems[navMap[tabId]].classList.add('active');
             
             document.getElementById('header-title').setAttribute('data-i18n', tabId === 'directory' ? 'find_mentors' : tabId);
             updateTranslations();
         }
+        
         document.addEventListener('click', function(event) {
             const avatar = document.getElementById('topbar-avatar');
             const menu = document.getElementById('profile-dropdown');
@@ -498,6 +661,18 @@
 
         // --- 3. Orion Chatbot Logic (Knowledge Base) ---
         const aiKnowledgeBase = [
+            {
+                keywords: ['when can i join', 'how can i join', 'july', 'starting', 'start date', 'enroll', 'join'],
+                answer: "You can join our next mentorship cohort starting this July! To enroll, simply navigate to the 'Find Mentors' directory on the dashboard and book your first session with an available mentor."
+            },
+            {
+                keywords: ['mentor is available', 'availability', 'when are mentors', 'available'],
+                answer: "Our mentors, including our 24/7 AI Clones and scheduled Corporate Mentors, update their availability weekly. Check the Directory to see real-time booking slots."
+            },
+            {
+                keywords: ['how old', 'found', 'founded', 'age of', 'started the startup', 'startup'],
+                answer: "Orion EdTech was recently founded in 2025! We are a newly established, rapidly growing startup dedicated to revolutionizing education through AI and WebXR technologies."
+            },
             {
                 keywords: ['ai', 'ml', 'dl', 'machine learning', 'deep learning', 'difference', 'artificial intelligence', 'எந்திர கற்றல்', 'मशीन लर्निंग', 'మెషిన్ లెర్నింగ్'],
                 answer: "AI is the broadest concept of machines simulating human intelligence. ML is a subset of AI where machines learn from data without being explicitly programmed. Deep Learning is a specialized subset of ML that uses multi-layered artificial neural networks (brain-inspired models)."
@@ -537,7 +712,6 @@
         function sendSuggested(query) {
             document.getElementById('ai-input').value = query;
             processUserChat(new Event('submit'));
-            // Remove suggestions after first use to clean up UI
             const suggs = document.getElementById('chat-suggestions');
             if(suggs) suggs.style.display = 'none';
         }
@@ -550,7 +724,6 @@
 
             const chatBody = document.getElementById('chat-body');
             
-            // Render User Message
             const userBubble = document.createElement('div');
             userBubble.className = 'chat-bubble bubble-user';
             userBubble.innerText = msg;
@@ -559,26 +732,22 @@
             input.value = '';
             chatBody.scrollTop = chatBody.scrollHeight;
 
-            // Simple Keyword Extraction Logic
             let lowerMsg = msg.toLowerCase();
             let matchedTopic = null;
 
             for (let topic of aiKnowledgeBase) {
-                // If any keyword is found in the user's message
                 if (topic.keywords.some(kw => lowerMsg.includes(kw))) {
                     matchedTopic = topic;
                     break;
                 }
             }
 
-            // Simulate slight delay for natural feeling
             setTimeout(() => {
                 const aiBubble = document.createElement('div');
                 aiBubble.className = 'chat-bubble bubble-ai';
                 
                 if (matchedTopic) {
                     aiBubble.innerText = matchedTopic.answer;
-                    // Inject code block if it exists
                     if (matchedTopic.code) {
                         const uniqueId = 'code-' + Date.now();
                         const codeHTML = `
@@ -593,7 +762,8 @@
                         aiBubble.innerHTML += codeHTML;
                     }
                 } else {
-                    aiBubble.innerText = "I am yet to learn the following concepts.";
+                    // Added fallback email link for unknown concepts
+                    aiBubble.innerHTML = 'I am yet to learn the following concepts. Please contact admin on this mail id: <a href="mailto:orionaiacademy@gmail.com" style="color: var(--primary);">orionaiacademy@gmail.com</a>';
                 }
                 
                 chatBody.appendChild(aiBubble);
@@ -601,7 +771,6 @@
             }, 600);
         }
 
-        // Copy Code Functionality
         function copyCode(btnElement, codeString) {
             navigator.clipboard.writeText(codeString).then(() => {
                 const originalText = btnElement.innerText;
@@ -629,10 +798,29 @@
                 "dashboard": "Dashboard",
                 "verified_student": "KYC Verified Student",
                 "find_mentors": "Find Mentors (Clones)",
+                "certs": "Certs/VR",
                 "logout": "Secure Logout",
                 "profile": "Profile",
                 "settings": "Settings",
-                "home": "Home"
+                "active_mentors": "Active Mentors",
+                "upcoming_sessions": "Upcoming Sessions",
+                "reward_points": "Reward Points",
+                "quick_actions": "Quick Actions",
+                "view_scheduled": "View Scheduled Sessions",
+                "open_chats": "Open Active Chats",
+                "not_updated": "Data not populated yet.",
+                "cert_title": "Certificate of Completion",
+                "cert_awarded": "This certifies that",
+                "cert_desc": "has successfully participated in the Orion Mentorship Module",
+                "module_progress": "Module Progress",
+                "claim_btn": "Claim Certificate",
+                "home": "Home",
+                "events": "Events",
+                "calendar": "Calendar",
+                "chats": "Chats",
+                "modal_title": "Action Required",
+                "modal_desc": "You have to complete all the sessions to get this certificate.",
+                "close": "Understood"
             },
             "ta": {
                 "app_title": "ஓரியன் எட்டெக்",
@@ -647,10 +835,29 @@
                 "dashboard": "கட்டுப்பாட்டு அறை",
                 "verified_student": "KYC சரிபார்க்கப்பட்ட மாணவர்",
                 "find_mentors": "வழிகாட்டிகளைத் தேடு (நகல்கள்)",
+                "certs": "சான்றிதழ்கள்/VR",
                 "logout": "பாதுகாப்பான வெளியேற்றம்",
                 "profile": "சுயவிவரம்",
                 "settings": "அமைப்புகள்",
-                "home": "முகப்பு"
+                "active_mentors": "செயலில் உள்ள வழிகாட்டிகள்",
+                "upcoming_sessions": "வரவிருக்கும் அமர்வுகள்",
+                "reward_points": "வெகுமதி புள்ளிகள்",
+                "quick_actions": "விரைவான செயல்கள்",
+                "view_scheduled": "திட்டமிடப்பட்ட அமர்வுகளைக் காண்க",
+                "open_chats": "செயலில் உள்ள அரட்டைகளைத் திற",
+                "not_updated": "தரவு இன்னும் நிரப்பப்படவில்லை.",
+                "cert_title": "முடிப்புச் சான்றிதழ்",
+                "cert_awarded": "இதை சான்றளிக்கிறது",
+                "cert_desc": "ஓரியன் வழிகாட்டுதல் தொகுதியில் வெற்றிகரமாக பங்கேற்றுள்ளார்",
+                "module_progress": "தொகுதி முன்னேற்றம்",
+                "claim_btn": "சான்றிதழைப் பெறுங்கள்",
+                "home": "முகப்பு",
+                "events": "நிகழ்வுகள்",
+                "calendar": "நாள்காட்டி",
+                "chats": "அரட்டைகள்",
+                "modal_title": "செயல் தேவை",
+                "modal_desc": "இந்தச் சான்றிதழைப் பெற நீங்கள் அனைத்து அமர்வுகளையும் முடிக்க வேண்டும்.",
+                "close": "புரிந்தது"
             },
             "hi": {
                 "app_title": "ओरियन एडटेक",
@@ -665,10 +872,29 @@
                 "dashboard": "डैशबोर्ड",
                 "verified_student": "KYC सत्यापित छात्र",
                 "find_mentors": "मेंटर खोजें (क्लोन)",
+                "certs": "प्रमाणपत्र/VR",
                 "logout": "सुरक्षित लॉगआउट",
                 "profile": "प्रोफ़ाइल",
                 "settings": "सेटिंग्स",
-                "home": "होम"
+                "active_mentors": "सक्रिय मेंटर्स",
+                "upcoming_sessions": "आगामी सत्र",
+                "reward_points": "रिवार्ड पॉइंट",
+                "quick_actions": "त्वरित कार्रवाइयां",
+                "view_scheduled": "निर्धारित सत्र देखें",
+                "open_chats": "सक्रिय चैट खोलें",
+                "not_updated": "डेटा अभी तक पॉप्युलेट नहीं किया गया है।",
+                "cert_title": "पूर्णता का प्रमाण पत्र",
+                "cert_awarded": "यह प्रमाणित करता है कि",
+                "cert_desc": "ने ओरियन मेंटरशिप मॉड्यूल में सफलतापूर्वक भाग लिया है",
+                "module_progress": "मॉड्यूल प्रगति",
+                "claim_btn": "प्रमाणपत्र का दावा करें",
+                "home": "होम",
+                "events": "कार्यक्रम",
+                "calendar": "कैलेंडर",
+                "chats": "चैट",
+                "modal_title": "कार्रवाई की आवश्यकता",
+                "modal_desc": "यह प्रमाणपत्र प्राप्त करने के लिए आपको सभी सत्र पूरे करने होंगे।",
+                "close": "समझ गया"
             },
             "te": {
                 "app_title": "ఓరియన్ ఎడ్టెక్",
@@ -683,10 +909,29 @@
                 "dashboard": "డాష్‌బోర్డ్",
                 "verified_student": "KYC ధృవీకరించబడిన విద్యార్థి",
                 "find_mentors": "మెంటార్లను కనుగొనండి (క్లోన్లు)",
+                "certs": "సర్టిఫికెట్లు/VR",
                 "logout": "సురక్షిత లాగౌట్",
                 "profile": "ప్రొఫైల్",
                 "settings": "సెట్టింగ్‌లు",
-                "home": "హోమ్"
+                "active_mentors": "క్రియాశీల మెంటార్లు",
+                "upcoming_sessions": "రాబోయే సెషన్‌లు",
+                "reward_points": "రివార్డ్ పాయింట్లు",
+                "quick_actions": "త్వరిత చర్యలు",
+                "view_scheduled": "షెడ్యూల్ చేసిన సెషన్‌లను వీక్షించండి",
+                "open_chats": "క్రియాశీల చాట్‌లను తెరవండి",
+                "not_updated": "డేటా ఇంకా నింపబడలేదు.",
+                "cert_title": "పూర్తి చేసిన సర్టిఫికెట్",
+                "cert_awarded": "ఇది ధృవీకరిస్తుంది",
+                "cert_desc": "ఓరియన్ మెంటార్‌షిప్ మాడ్యూల్‌లో విజయవంతంగా పాల్గొన్నారు",
+                "module_progress": "మాడ్యూల్ పురోగతి",
+                "claim_btn": "సర్టిఫికేట్ పొందండి",
+                "home": "హోమ్",
+                "events": "ఈవెంట్స్",
+                "calendar": "క్యాలెండర్",
+                "chats": "చాట్‌లు",
+                "modal_title": "చర్య అవసరం",
+                "modal_desc": "ఈ సర్టిఫికేట్ పొందడానికి మీరు అన్ని సెషన్లను పూర్తి చేయాలి.",
+                "close": "అర్థమైంది"
             }
         };
 
