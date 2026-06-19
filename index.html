@@ -140,7 +140,6 @@
             padding: 12px 1.5rem; display: flex; align-items: center; gap: 12px;
             color: var(--text-muted); cursor: pointer; transition: 0.2s; border-left: 3px solid transparent;
         }
-        /* Strict icon sizing fixed */
         .nav-item svg { width: 22px !important; height: 22px !important; flex-shrink: 0; }
         .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.03); color: white; border-left-color: var(--primary); }
 
@@ -152,13 +151,13 @@
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Dashboard specific - RESTORED */
+        /* Dashboard specific */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
         .stat-card { background: var(--bg-panel); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; text-align: center; }
         .stat-card h2 { margin: 0; font-size: 2rem; color: var(--primary); }
         .stat-card p { margin: 5px 0 0 0; color: var(--text-muted); }
 
-        /* Interactive Dropdowns - RESTORED */
+        /* Interactive Dropdowns */
         .action-list { display: flex; flex-direction: column; gap: 0.5rem; }
         .action-container { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
         .action-header {
@@ -178,7 +177,7 @@
         .list-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
         .list-item:last-child { border-bottom: none; }
 
-        /* Certificate Widget - RESTORED */
+        /* Certificate Widget */
         .cert-widget { display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; margin: 0 auto; }
         .cert-preview {
             background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); color: #0f172a;
@@ -194,7 +193,7 @@
         .progress-bar-container { background: var(--bg-deep); border-radius: 10px; padding: 3px; border: 1px solid var(--border); margin: 1rem 0;}
         .progress-bar { height: 10px; background: var(--primary); border-radius: 8px; width: 0%; }
 
-        /* Modal - RESTORED */
+        /* Modal */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7);
             display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(4px);
@@ -242,7 +241,6 @@
             background: linear-gradient(90deg, var(--bg-panel) 0%, rgba(99, 102, 241, 0.1) 100%); border-radius: 16px 16px 0 0;
         }
         
-        /* Custom AI Core SVG Avatar */
         .chat-header-avatar { 
             width: 42px; height: 42px; border-radius: 50%; background: var(--bg-deep); 
             display: flex; align-items: center; justify-content: center; border: 1px solid var(--primary);
@@ -492,12 +490,11 @@
                     <div class="chat-bubble bubble-ai" id="welcome-msg">
                         Hello! I am the Orion AI Mentor. I can help clarify concepts based on my training. Try asking about the topics below:
                         <div class="suggestions-container" id="chat-suggestions">
+                            <button class="suggestion-chip" onclick="sendSuggested('How old is the startup?')">Startup Age</button>
+                            <button class="suggestion-chip" onclick="sendSuggested('When can I join?')">Joining Process</button>
                             <button class="suggestion-chip" onclick="sendSuggested('Difference between AI, ML, and DL')">AI / ML / DL</button>
                             <button class="suggestion-chip" onclick="sendSuggested('What is overfitting?')">Overfitting</button>
-                            <button class="suggestion-chip" onclick="sendSuggested('How does an API work?')">APIs</button>
                             <button class="suggestion-chip" onclick="sendSuggested('Python palindrome function')">Palindrome (Python)</button>
-                            <button class="suggestion-chip" onclick="sendSuggested('How does a RAG system work?')">RAG Systems</button>
-                            <button class="suggestion-chip" onclick="sendSuggested('Debug: print(\'Hello World)')">Debug Code</button>
                         </div>
                     </div>
                 </div>
@@ -673,6 +670,20 @@
 
         // --- 3. Orion Chatbot Logic (Knowledge Base) ---
         const aiKnowledgeBase = [
+            // --- NEW ADDITIONS START ---
+            {
+                keywords: ['when can i join', 'how can i join', 'july', 'starting', 'start date', 'enroll', 'join'],
+                answer: "You can join our next mentorship cohort starting this July! To enroll, simply navigate to the 'Find Mentors' directory on the dashboard and book your first session with an available mentor."
+            },
+            {
+                keywords: ['mentor is available', 'availability', 'when are mentors', 'available'],
+                answer: "Our mentors, including our 24/7 AI Clones and scheduled Corporate Mentors, update their availability weekly. Check the Directory to see real-time booking slots."
+            },
+            {
+                keywords: ['how old', 'found', 'founded', 'age of', 'started the startup', 'startup'],
+                answer: "Orion EdTech was recently founded in 2025! We are a newly established, rapidly growing startup dedicated to revolutionizing education through AI and WebXR technologies."
+            },
+            // --- NEW ADDITIONS END ---
             {
                 keywords: ['ai', 'ml', 'dl', 'machine learning', 'deep learning', 'difference', 'artificial intelligence', 'எந்திர கற்றல்', 'मशीन लर्निंग', 'మెషిన్ లెర్నింగ్'],
                 answer: "AI is the broadest concept of machines simulating human intelligence. ML is a subset of AI where machines learn from data without being explicitly programmed. Deep Learning is a specialized subset of ML that uses multi-layered artificial neural networks (brain-inspired models)."
@@ -957,4 +968,3 @@
     </script>
 </body>
 </html>
-
