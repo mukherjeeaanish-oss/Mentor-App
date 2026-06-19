@@ -42,6 +42,8 @@
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn:hover { background: #4f46e5; box-shadow: 0 0 15px var(--primary-glow); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+        .btn-outline:hover { background: var(--bg-hover); border-color: var(--text-muted); }
 
         /* --- View 1: Auth Screen --- */
         #auth-view {
@@ -149,13 +151,12 @@
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Dashboard specific - FULLY RESTORED */
+        /* Dashboard Stats & Actions */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
         .stat-card { background: var(--bg-panel); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; text-align: center; }
         .stat-card h2 { margin: 0; font-size: 2rem; color: var(--primary); }
         .stat-card p { margin: 5px 0 0 0; color: var(--text-muted); }
 
-        /* Interactive Dropdowns - FULLY RESTORED */
         .action-list { display: flex; flex-direction: column; gap: 0.5rem; }
         .action-container { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
         .action-header {
@@ -175,7 +176,7 @@
         .list-item { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
         .list-item:last-child { border-bottom: none; }
 
-        /* Certificate Widget - FULLY RESTORED */
+        /* Certificate Widget */
         .cert-widget { display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; margin: 0 auto; }
         .cert-preview {
             background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); color: #0f172a;
@@ -191,7 +192,7 @@
         .progress-bar-container { background: var(--bg-deep); border-radius: 10px; padding: 3px; border: 1px solid var(--border); margin: 1rem 0;}
         .progress-bar { height: 10px; background: var(--primary); border-radius: 8px; width: 0%; }
 
-        /* Modal - FULLY RESTORED */
+        /* Modal */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7);
             display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(4px);
@@ -283,6 +284,7 @@
 </head>
 <body>
 
+    <!-- VIEW 1: AUTHENTICATION -->
     <div id="auth-view">
         <div class="brand-logo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -322,6 +324,7 @@
         </div>
     </div>
 
+    <!-- VIEW 2: MAIN APPLICATION -->
     <div id="app-view">
         <header class="topbar">
             <div class="top-left">
@@ -379,8 +382,10 @@
             </aside>
 
             <main class="main-content">
-                <!-- Dashboard / Home fully restored -->
                 <div id="tab-home" class="tab-pane active">
+                    <h2 style="margin-top:0;">Welcome to Orion EdTech</h2>
+                    <p style="color: var(--text-muted);">Use the floating AI node in the bottom right to begin your technical mentorship session.</p>
+
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h2>0</h2>
@@ -399,7 +404,6 @@
                     <h3 style="margin-bottom: 1rem;" data-i18n="quick_actions">Quick Actions</h3>
                     
                     <div class="action-list">
-                        <!-- Dropdown 1 -->
                         <div class="action-container">
                             <div class="action-header" onclick="toggleAccordion(this)">
                                 <div style="display:flex; align-items:center; gap: 10px;">
@@ -415,7 +419,6 @@
                             </div>
                         </div>
 
-                        <!-- Dropdown 2 -->
                         <div class="action-container">
                             <div class="action-header" onclick="toggleAccordion(this)">
                                 <div style="display:flex; align-items:center; gap: 10px;">
@@ -433,7 +436,11 @@
                     </div>
                 </div>
 
-                <!-- Certs / VR Tab fully restored -->
+                <div id="tab-directory" class="tab-pane"><h2 data-i18n="find_mentors">Find Mentors</h2></div>
+                <div id="tab-events" class="tab-pane"><h2 data-i18n="events">Events</h2></div>
+                <div id="tab-calendar" class="tab-pane"><h2 data-i18n="calendar">Calendar</h2></div>
+                <div id="tab-chat" class="tab-pane"><h2 data-i18n="chats">Chats</h2></div>
+
                 <div id="tab-certs" class="tab-pane">
                     <div class="cert-widget">
                         <div class="cert-preview">
@@ -460,21 +467,15 @@
                         </div>
                     </div>
                 </div>
-                
-                <div id="tab-directory" class="tab-pane"><h2 data-i18n="find_mentors">Find Mentors</h2></div>
-                <div id="tab-events" class="tab-pane"><h2 data-i18n="events">Events</h2></div>
-                <div id="tab-calendar" class="tab-pane"><h2 data-i18n="calendar">Calendar</h2></div>
-                <div id="tab-chat" class="tab-pane"><h2 data-i18n="chats">Chats</h2></div>
+
             </main>
 
-            <!-- Floating Action Button -->
             <div class="ai-mentor-fab" onclick="toggleAiChat()">
                 <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
             </div>
 
-            <!-- Orion Knowledge Chat Widget -->
             <div class="ai-chat-window glass" id="ai-chat-window">
                 <div class="chat-header">
                     <div class="chat-header-avatar">
@@ -516,9 +517,21 @@
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     <span data-i18n="home">Home</span>
                 </div>
-                <div class="b-nav-item" onclick="navigate('directory')">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    <span data-i18n="find_mentors">Directory</span>
+                <div class="b-nav-item" onclick="navigate('events')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    <span data-i18n="events">Events</span>
+                </div>
+                <div class="b-nav-item" onclick="navigate('certs')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                    <span data-i18n="certs">Certs/VR</span>
+                </div>
+                <div class="b-nav-item" onclick="navigate('calendar')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <span data-i18n="calendar">Calendar</span>
+                </div>
+                <div class="b-nav-item" onclick="navigate('chat')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <span data-i18n="chats">Chats</span>
                 </div>
             </nav>
 
@@ -645,7 +658,9 @@
 
             const navItems = document.querySelectorAll('.b-nav-item');
             const navMap = { 'home': 0, 'events': 1, 'certs': 2, 'calendar': 3, 'chat': 4 };
-            if(navMap[tabId] !== undefined) navItems[navMap[tabId]].classList.add('active');
+            if(navMap[tabId] !== undefined && navItems[navMap[tabId]]) {
+                navItems[navMap[tabId]].classList.add('active');
+            }
             
             document.getElementById('header-title').setAttribute('data-i18n', tabId === 'directory' ? 'find_mentors' : tabId);
             updateTranslations();
@@ -712,8 +727,6 @@
         function sendSuggested(query) {
             document.getElementById('ai-input').value = query;
             processUserChat(new Event('submit'));
-            const suggs = document.getElementById('chat-suggestions');
-            if(suggs) suggs.style.display = 'none';
         }
 
         function processUserChat(e) {
@@ -762,8 +775,13 @@
                         aiBubble.innerHTML += codeHTML;
                     }
                 } else {
-                    // Added fallback email link for unknown concepts
                     aiBubble.innerHTML = 'I am yet to learn the following concepts. Please contact admin on this mail id: <a href="mailto:orionaiacademy@gmail.com" style="color: var(--primary);">orionaiacademy@gmail.com</a>';
+                }
+                
+                // Append suggestions to the newest AI bubble so they never vanish
+                const suggs = document.getElementById('chat-suggestions');
+                if (suggs) {
+                    aiBubble.appendChild(suggs);
                 }
                 
                 chatBody.appendChild(aiBubble);
@@ -799,6 +817,9 @@
                 "verified_student": "KYC Verified Student",
                 "find_mentors": "Find Mentors (Clones)",
                 "certs": "Certs/VR",
+                "calendar": "Calendar",
+                "chats": "Chats",
+                "events": "Events",
                 "logout": "Secure Logout",
                 "profile": "Profile",
                 "settings": "Settings",
@@ -815,9 +836,6 @@
                 "module_progress": "Module Progress",
                 "claim_btn": "Claim Certificate",
                 "home": "Home",
-                "events": "Events",
-                "calendar": "Calendar",
-                "chats": "Chats",
                 "modal_title": "Action Required",
                 "modal_desc": "You have to complete all the sessions to get this certificate.",
                 "close": "Understood"
@@ -836,6 +854,9 @@
                 "verified_student": "KYC சரிபார்க்கப்பட்ட மாணவர்",
                 "find_mentors": "வழிகாட்டிகளைத் தேடு (நகல்கள்)",
                 "certs": "சான்றிதழ்கள்/VR",
+                "calendar": "நாள்காட்டி",
+                "chats": "அரட்டைகள்",
+                "events": "நிகழ்வுகள்",
                 "logout": "பாதுகாப்பான வெளியேற்றம்",
                 "profile": "சுயவிவரம்",
                 "settings": "அமைப்புகள்",
@@ -852,9 +873,6 @@
                 "module_progress": "தொகுதி முன்னேற்றம்",
                 "claim_btn": "சான்றிதழைப் பெறுங்கள்",
                 "home": "முகப்பு",
-                "events": "நிகழ்வுகள்",
-                "calendar": "நாள்காட்டி",
-                "chats": "அரட்டைகள்",
                 "modal_title": "செயல் தேவை",
                 "modal_desc": "இந்தச் சான்றிதழைப் பெற நீங்கள் அனைத்து அமர்வுகளையும் முடிக்க வேண்டும்.",
                 "close": "புரிந்தது"
@@ -873,6 +891,9 @@
                 "verified_student": "KYC सत्यापित छात्र",
                 "find_mentors": "मेंटर खोजें (क्लोन)",
                 "certs": "प्रमाणपत्र/VR",
+                "calendar": "कैलेंडर",
+                "chats": "चैट",
+                "events": "कार्यक्रम",
                 "logout": "सुरक्षित लॉगआउट",
                 "profile": "प्रोफ़ाइल",
                 "settings": "सेटिंग्स",
@@ -889,9 +910,6 @@
                 "module_progress": "मॉड्यूल प्रगति",
                 "claim_btn": "प्रमाणपत्र का दावा करें",
                 "home": "होम",
-                "events": "कार्यक्रम",
-                "calendar": "कैलेंडर",
-                "chats": "चैट",
                 "modal_title": "कार्रवाई की आवश्यकता",
                 "modal_desc": "यह प्रमाणपत्र प्राप्त करने के लिए आपको सभी सत्र पूरे करने होंगे।",
                 "close": "समझ गया"
@@ -910,6 +928,9 @@
                 "verified_student": "KYC ధృవీకరించబడిన విద్యార్థి",
                 "find_mentors": "మెంటార్లను కనుగొనండి (క్లోన్లు)",
                 "certs": "సర్టిఫికెట్లు/VR",
+                "calendar": "క్యాలెండర్",
+                "chats": "చాట్‌లు",
+                "events": "ఈవెంట్స్",
                 "logout": "సురక్షిత లాగౌట్",
                 "profile": "ప్రొఫైల్",
                 "settings": "సెట్టింగ్‌లు",
@@ -926,9 +947,6 @@
                 "module_progress": "మాడ్యూల్ పురోగతి",
                 "claim_btn": "సర్టిఫికేట్ పొందండి",
                 "home": "హోమ్",
-                "events": "ఈవెంట్స్",
-                "calendar": "క్యాలెండర్",
-                "chats": "చాట్‌లు",
                 "modal_title": "చర్య అవసరం",
                 "modal_desc": "ఈ సర్టిఫికేట్ పొందడానికి మీరు అన్ని సెషన్లను పూర్తి చేయాలి.",
                 "close": "అర్థమైంది"
@@ -958,3 +976,4 @@
     </script>
 </body>
 </html>
+
